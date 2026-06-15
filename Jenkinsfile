@@ -4,32 +4,28 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
-
-            steps {
-                echo 'Downloading Source Code'
-            }
-        }
-
         stage('Build') {
-
             steps {
-                echo 'Building Application'
+                echo 'Build Started'
             }
         }
 
         stage('Test') {
-
             steps {
-                echo 'Testing Application'
+                bat 'if exist index.html echo Test Passed'
             }
         }
 
         stage('Deploy') {
-
             steps {
-                echo 'Deploying Application'
+                bat 'xcopy * C:\\DeployFolder\\ /E /Y'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment Successful'
         }
     }
 }
